@@ -37,4 +37,42 @@ All users:</br>
 	}
 
 
+
+
+//select usergroup
+
+
 ?>
+<div style="background-color:blue;">
+All Users with Premium accounts:
+<?php
+/*
+	//Select all Users from Usergroups and gets all required tables 
+	SELECT TBL_User.* FROM TBL_Usergroup, 
+	JTBL_Usergroup_User,TBL_User
+
+	//Now the tables will be linked
+	WHERE 
+	TBL_Usergroup.ID 	= JTBL_Usergroup_User.Usergroup_ID AND 
+	TBL_User.ID 		= JTBL_Usergroup_User.User_ID
+*/
+	$sql = "SELECT TBL_User.*
+	FROM TBL_Usergroup, JTBL_Usergroup_User,TBL_User
+	WHERE 
+	TBL_Usergroup.ID 	= JTBL_Usergroup_User.Usergroup_ID AND 
+	TBL_User.ID 		= JTBL_Usergroup_User.User_ID
+	";
+
+	$statement = $db->prepare($sql);
+	$statement->execute();
+
+	while ($User = $statement->fetchObject()) {
+		echo $User->Name;
+		echo "<br />";
+	}
+
+
+?>
+
+</div>
+
